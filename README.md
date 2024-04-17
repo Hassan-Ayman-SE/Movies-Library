@@ -24,3 +24,14 @@ When the client does a search in the browser, like when they want to search for 
 2. Use the routes like **GET** method `app.get("/favorite", handelFavorite);`.
 3. Error handling `res.status(404).send('Page Not Found');`
 4. Listen Server to start: `app.listen(port, () => {console.log(port)});`
+
+
+## Getting Started with 3rd Party API 
+1. Node Express Server
+2. Use axios to fetch remote data asynchronously
+3. Get 3rd Party data from an API
+
+## WRRC
+**Image of WRRC** :
+!["WRRC"](images/wrrc_api.PNG)
+
