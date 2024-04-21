@@ -29,9 +29,19 @@ When the client does a search in the browser, like when they want to search for 
 ## Getting Started with 3rd Party API 
 1. Node Express Server
 2. Use axios to fetch remote data asynchronously
-3. Get 3rd Party data from an API
+3. Get data from a 3rd Party API
 
 ## WRRC
 **Image of WRRC** :
 !["WRRC"](images/wrrc_api.PNG)
+
+## Lab13
+## Getting Started with DB 
+1. Node Express Server
+2. CRUD operation
+3. Post data to DB and get data from DB
+
+## WRRC
+**Image of WRRC** :
+!["WRRC"](images/wrrc_db.PNG)
 
