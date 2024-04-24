@@ -45,3 +45,14 @@ When the client does a search in the browser, like when they want to search for 
 **Image of WRRC** :
 !["WRRC"](images/wrrc_db.PNG)
 
+## Lab14
+## continue working with DB 
+1. Node Express Server
+2. CRUD operation
+3. Post data to DB and get data from DB
+4. Update data in DB and Delete data from DB
+
+## WRRC
+**Image of WRRC** :
+!["WRRC"](images/wrrc_db.PNG)
+
