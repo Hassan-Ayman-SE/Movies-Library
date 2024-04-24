@@ -22,7 +22,7 @@ app.use(cors());
 //for parsing body
 app.use(express.json());
 
-const PORT = 3001;
+const PORT = 3000;
 
 // routes
 app.get("/", handleHomePage);
@@ -35,6 +35,9 @@ app.get("/top_rated", handleTopRated);
 //CRUD Routes
 app.post("/addMovie", handleAddMovie);
 app.get("/getMovies", handleGetMovies);
+app.put("/UPDATE/:id", handleUpdateMovie);
+app.delete("/DELETE/:id", handleDeleteMovie);
+app.get("/getMovie/:id", getMovieById);
 //Error Handlers
 app.use(errorHandler404);
 app.use(errorHandler500);
@@ -130,6 +133,8 @@ function handleTopRated(req, res) {
     }
 }
 
+
+// //(Post) Add Request
 function handleAddMovie(req, res) {
     const { title, release_date, poster_path, overview } = req.body;
 
@@ -144,11 +149,54 @@ function handleAddMovie(req, res) {
 
 }
 
+//get request
 function handleGetMovies(req, res) {
     let sql = 'SELECT * FROM movies;'
     client.query(sql).then((result) => {
         console.log(result);
         res.status(200).json(result.rows);
+    }).catch((error) => {
+        errorHandler500(error, req, res);
+    });
+
+}
+//(Put) update request
+function handleUpdateMovie(req, res) {
+    const id = req.params.id;
+    const { title, release_date, poster_path, overview } = req.body;
+    const sql = `UPDATE  movies SET title = $1, release_date = $2, poster_path = $3, overview = $4  where id = ${id} RETURNING *;`
+    let values = [title, release_date, poster_path, overview];
+    client.query(sql, values)
+        .then((result) => {
+            res.status(200).json(result.rows[0]);
+        })
+        .catch(error => {
+            errorHandler500(error, req, res);
+        });
+}
+
+//(Delete) Delete request
+function handleDeleteMovie(req, res) {
+    const id = req.params.id;
+
+    const sql = `DELETE FROM movies where id= ${id} RETURNING *;`
+    client.query(sql)
+        .then((result) => {
+          //  res.status(204).json(result.rows[0]);recommended
+            res.json(result.rows[0]);
+        })
+        .catch((error) => {
+            errorHandler500(error, req, res);
+        })
+}
+//get a Movie By Id
+function getMovieById(req, res) {
+    let id = req.params.id;
+
+    let sql = `SELECT * FROM movies WHERE id=${id};`
+
+    client.query(sql).then((result) => {
+        return res.json(result.rows);
     }).catch((error) => {
         errorHandler500(error, req, res);
     });
