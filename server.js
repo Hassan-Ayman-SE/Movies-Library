@@ -11,6 +11,7 @@ const movieData = require("./Movie Data/data.json");
 
 const apiKey = process.env.API_KEY;
 const pgUrl = process.env.PG_URL;
+const PORT = process.env.PORT;
 
 //for quiery in js file using pg package
 const { Client } = require('pg');
@@ -21,8 +22,6 @@ const app = express();
 app.use(cors());
 //for parsing body
 app.use(express.json());
-
-const PORT = 3000;
 
 // routes
 app.get("/", handleHomePage);
