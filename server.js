@@ -11,7 +11,7 @@ const movieData = require("./Movie Data/data.json");
 
 const apiKey = process.env.API_KEY;
 const pgUrl = process.env.PG_URL;
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 //for quiery in js file using pg package
 const { Client } = require('pg');
@@ -135,10 +135,10 @@ function handleTopRated(req, res) {
 
 // //(Post) Add Request
 function handleAddMovie(req, res) {
-    const { title, release_date, poster_path, overview } = req.body;
+    const { title, release_date, poster_path, overview, comment } = req.body;
 
-    let sql = 'INSERT INTO movies(title, release_date, poster_path, overview) VALUES($1, $2, $3, $4) RETURNING *;' // sql query
-    let values = [title, release_date, poster_path, overview];
+    let sql = 'INSERT INTO movies(title, release_date, poster_path, overview, comment) VALUES($1, $2, $3, $4, $5) RETURNING *;' // sql query
+    let values = [title, release_date, poster_path, overview, comment];
     client.query(sql, values).then((result) => {
         // console.log(result.rows);
         return res.status(201).json(result.rows[0]);
@@ -162,9 +162,9 @@ function handleGetMovies(req, res) {
 //(Put) update request
 function handleUpdateMovie(req, res) {
     const id = req.params.id;
-    const { title, release_date, poster_path, overview } = req.body;
-    const sql = `UPDATE  movies SET title = $1, release_date = $2, poster_path = $3, overview = $4  where id = ${id} RETURNING *;`
-    let values = [title, release_date, poster_path, overview];
+    const { title, release_date, poster_path, overview, comment } = req.body;
+    const sql = `UPDATE  movies SET title = $1, release_date = $2, poster_path = $3, overview = $4, comment = $5  where id = ${id} RETURNING *;`;
+    let values = [title, release_date, poster_path, overview, comment];
     client.query(sql, values)
         .then((result) => {
             res.status(200).json(result.rows[0]);
