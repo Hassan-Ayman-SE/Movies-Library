@@ -185,12 +185,12 @@ function handleUpdateMovie(req, res) {
   const { comment } = req.body;
   // const sql = `UPDATE  movies SET title = $1, release_date = $2, poster_path = $3, overview = $4, comment = $5  where id = ${id} RETURNING *;`;
   const sql = `UPDATE movies
-    SET comment='${comment}'
-    WHERE id=${id} RETURNING *;`;
+    SET comment=$1
+    WHERE id=$2 RETURNING *;`;
 
   //let values = [title, release_date, poster_path, overview, comment];
 
-  let values = [comment];
+  let values = [comment, id];
   client
     .query(sql, values)
     .then((result) => {
@@ -198,7 +198,8 @@ function handleUpdateMovie(req, res) {
       res.status(200).json(result.rows[0]);
     })
     .catch((error) => {
-      errorHandler500(error, req, res);
+      // errorHandler500(error, req, res);
+      console.log(error);
     });
 }
 
@@ -206,9 +207,10 @@ function handleUpdateMovie(req, res) {
 function handleDeleteMovie(req, res) {
   const id = req.params.id;
 
-  const sql = `DELETE FROM movies where id= ${id} RETURNING *;`;
+  const sql = `DELETE FROM movies where id= $1 RETURNING *;`;
+  let values = [id];
   client
-    .query(sql)
+    .query(sql, values)
     .then((result) => {
       //  res.status(204).json(result.rows[0]);recommended
       //res.json(result.rows[0]);
