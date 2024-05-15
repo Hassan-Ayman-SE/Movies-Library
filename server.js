@@ -194,8 +194,8 @@ function handleUpdateMovie(req, res) {
   client
     .query(sql, values)
     .then((result) => {
-      handleGetMovies(req, res);
-      //res.status(200).json(result.rows[0]);
+      //handleGetMovies(req, res);
+      res.status(200).json(result.rows[0]);
     })
     .catch((error) => {
       errorHandler500(error, req, res);
