@@ -181,7 +181,8 @@ function handleGetMovies(req, res) {
 //(Put) update request
 function handleUpdateMovie(req, res) {
   const id = req.params.id;
-  const { title, release_date, poster_path, overview, comment } = req.body;
+  // const { title, release_date, poster_path, overview, comment } = req.body;
+  const { comment } = req.body;
   // const sql = `UPDATE  movies SET title = $1, release_date = $2, poster_path = $3, overview = $4, comment = $5  where id = ${id} RETURNING *;`;
   const sql = `UPDATE movies
     SET comment='${comment}'
