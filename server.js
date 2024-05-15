@@ -152,7 +152,7 @@ function handleAddMovie(req, res) {
   const { id, title, release_date, poster_path, overview, comment } = req.body;
 
   let sql =
-    "INSERT INTO movies(title, release_date, poster_path, overview, comment) VALUES($1, $2, $3, $4, $5, $6) RETURNING *;"; // sql query
+    "INSERT INTO movies(id, title, release_date, poster_path, overview, comment) VALUES($1, $2, $3, $4, $5, $6) RETURNING *;"; // sql query
   let values = [id, title, release_date, poster_path, overview, comment];
   client
     .query(sql, values)
