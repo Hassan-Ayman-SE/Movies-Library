@@ -149,11 +149,11 @@ function handleTopRated(req, res) {
 
 // //(Post) Add Request
 function handleAddMovie(req, res) {
-  const { title, release_date, poster_path, overview, comment } = req.body;
+  const { id, title, release_date, poster_path, overview, comment } = req.body;
 
   let sql =
-    "INSERT INTO movies(title, release_date, poster_path, overview, comment) VALUES($1, $2, $3, $4, $5) RETURNING *;"; // sql query
-  let values = [title, release_date, poster_path, overview, comment];
+    "INSERT INTO movies(title, release_date, poster_path, overview, comment) VALUES($1, $2, $3, $4, $5, $6) RETURNING *;"; // sql query
+  let values = [id, title, release_date, poster_path, overview, comment];
   client
     .query(sql, values)
     .then((result) => {
